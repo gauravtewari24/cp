@@ -1,0 +1,104 @@
+
+
+/****BIPARTITE GRAPH****/
+
+bool dfs_bipartite(int v,int c)
+{
+vis[v]=1;
+col[v]=1;
+
+for(int child: ar[v])
+{
+        if(vis[child]==0)
+	{
+	  if(dfs(child,c^1)==false)
+		return false;
+	  
+	}
+	else
+	{
+	  if(col[v]==col[child])
+	   return false;
+	}
+}
+return true;
+}
+
+
+////**** BFS ******/
+
+vector<int> ar[100001];
+int dis[100001],vis[100001];
+
+void bfs(int node)
+{
+	vis[node]=1;
+	queue<int> q;
+	q.push(node);
+	dis[node]=0;
+	while(!q.empty())
+	{
+		int cur=q.front();
+		q.pop();
+
+		for(int child : ar[cur] )
+		{
+			if(vis[child]==0)
+			{
+				vis[child]=1;
+				q.push(child);
+				dis[child]=dis[cur]+1;
+			}			
+		}
+	}	
+}
+
+
+///////// DFS
+
+void dfs(int x)
+{
+	vis[x]=1;
+
+	for(int ch : v[x])
+	{
+		if(!vis[ch])
+		dfs(ch);
+	}
+}
+
+
+
+///// SUBSETS THROUGH BITMAKSING ////////
+
+
+void subset(char ar[])
+{
+  //the number of elements in a set(like if ar[]={'A','B','C','D'} ,if n=2 we consider only {A,B} as set 
+int tot=1<<n;
+
+for(int n=0;n<tot;n++)
+{
+for(int i=0;i<n;i++)
+{
+int f=1<<i;
+if((n&f)!=0)
+cout<<ar[i]<<' ';
+}
+cout<<endl;
+}
+}
+
+/*    Example
+
+ar[]={'A','B','C','D'};
+n=2
+   //empty
+A 
+B 
+A B 
+*/
+
+
+
+
